@@ -1,4 +1,6 @@
-# Udacity Data Scientist - Disaster Response Pipeline Project
+# Udacity Data Scientist Nanodegree Program 
+## Disaster Response Pipeline Project
+***
 
 ## Description
 
@@ -30,6 +32,11 @@ The project is consisted of 3 main parts.
 
 ### Author
 
+The repository has been created by ***Evren Ermiş*** <br>
+- [Github](https://github.com/eermis1)
+- [Linkedin](www.linkedin.com/in/evrenermis92)
+- [Kaggle](https://www.kaggle.com/evrenermis/)
+
 ### Licanse
 
-
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
