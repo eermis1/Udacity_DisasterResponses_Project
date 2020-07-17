@@ -2,6 +2,8 @@
 ## Disaster Response Pipeline Project
 ***
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 ## Description
 
 This repository has been created for Udacity Data Scientist Nanodegree Program - Data Engineering Part - Disaster Response Pipeline Project.
@@ -56,10 +58,12 @@ The project is consisted of 3 main parts.
 
 2. Run the following commands in the project's root directory to set up your database and machine learning model.
 
-    - To run ETL pipeline by adding required filepaths. See an example below <br>
+    - To run ETL pipeline for clean and store data. <br>
       `python data/process_data.py data/disaster_messages.csv data/disaster_categories.csv data/DisasterResponse.db`
-    - To run ML pipeline by adding required filepaths. See an example below <br>
+    - To run ML pipeline for building the model. <br>
       `python models/train_classifier.py data/DisasterResponse.db models/classifier.pkl`
+  
+    - **Note**: Addition of filepaths is important for successful run of ETL and ML pipelines. The above instructions are just an example, they can be modified   based on   needs.
 
 3. Run the following command in the app's directory to run your web app. <br>
      `python run.py`
@@ -73,7 +77,3 @@ The repository has been created by ***Evren Ermiş*** <br>
 - [Github](https://github.com/eermis1)
 - [Linkedin](www.linkedin.com/in/evrenermis92)
 - [Kaggle](https://www.kaggle.com/evrenermis/)
-
-### Licanse
-
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
