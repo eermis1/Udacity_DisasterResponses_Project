@@ -3,10 +3,15 @@ import numpy as np
 import pandas as pd
 from sqlalchemy import create_engine
 
+"""
+process_data.py applies the functions in the notebook step by step and
+gets the data ready for machine learning pipeline.
+Since functions have been explained in jupyter notebooks, no additional info has been added here.
+
+"""
 
 def load_data(messages_filepath, categories_filepath):
 
-    # Load and merge datasets.
     messages = pd.read_csv(messages_filepath)
     categories = pd.read_csv(categories_filepath)
     df = messages.merge(categories, on="id")
@@ -16,28 +21,20 @@ def load_data(messages_filepath, categories_filepath):
 
 def clean_data(df):
 
-    # create a dataframe of the 36 individual category columns
     categories = df.categories.str.split(pat=";", expand=True)
-    # select the first row of the categories dataframe
     row = categories.iloc[0, :]
     category_colnames = row.apply(lambda x: x[:-2])
-    # rename the columns of `categories`
     categories.columns = category_colnames
 
     for column in categories:
-        # set each value to be the last character of the string
         categories[column] = categories[column].str[-1]
-
-        # convert column from string to numeric
         categories[column] = categories[column].astype(int)
 
-    # drop the original categories column from `df`
     df.drop(columns="categories", inplace=True)
-    # concatenate the original dataframe with the new `categories` dataframe
     df = pd.concat([df, categories], axis=1)
-    # drop duplicates
+    print(df.head())
     df.drop_duplicates(inplace=True)
-
+    print(df.shape)
     return df
 
 
@@ -48,6 +45,7 @@ def save_data(df, database_filename):
 
 
 def main():
+
     if len(sys.argv) == 4:
 
         messages_filepath, categories_filepath, database_filepath = sys.argv[1:]
