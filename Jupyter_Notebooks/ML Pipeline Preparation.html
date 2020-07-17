@@ -2,7 +2,7 @@
 <html>
 <head><meta charset="utf-8" />
 
-<title>ETL Pipeline Preparation</title>
+<title>ML Pipeline Preparation</title>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
@@ -13017,64 +13017,6 @@ ul.typeahead-list  > li > a.pull-right {
 .highlight .vm { color: #19177C } /* Name.Variable.Magic */
 .highlight .il { color: #666666 } /* Literal.Number.Integer.Long */
     </style>
-<style type="text/css">
-    
-/* Temporary definitions which will become obsolete with Notebook release 5.0 */
-.ansi-black-fg { color: #3E424D; }
-.ansi-black-bg { background-color: #3E424D; }
-.ansi-black-intense-fg { color: #282C36; }
-.ansi-black-intense-bg { background-color: #282C36; }
-.ansi-red-fg { color: #E75C58; }
-.ansi-red-bg { background-color: #E75C58; }
-.ansi-red-intense-fg { color: #B22B31; }
-.ansi-red-intense-bg { background-color: #B22B31; }
-.ansi-green-fg { color: #00A250; }
-.ansi-green-bg { background-color: #00A250; }
-.ansi-green-intense-fg { color: #007427; }
-.ansi-green-intense-bg { background-color: #007427; }
-.ansi-yellow-fg { color: #DDB62B; }
-.ansi-yellow-bg { background-color: #DDB62B; }
-.ansi-yellow-intense-fg { color: #B27D12; }
-.ansi-yellow-intense-bg { background-color: #B27D12; }
-.ansi-blue-fg { color: #208FFB; }
-.ansi-blue-bg { background-color: #208FFB; }
-.ansi-blue-intense-fg { color: #0065CA; }
-.ansi-blue-intense-bg { background-color: #0065CA; }
-.ansi-magenta-fg { color: #D160C4; }
-.ansi-magenta-bg { background-color: #D160C4; }
-.ansi-magenta-intense-fg { color: #A03196; }
-.ansi-magenta-intense-bg { background-color: #A03196; }
-.ansi-cyan-fg { color: #60C6C8; }
-.ansi-cyan-bg { background-color: #60C6C8; }
-.ansi-cyan-intense-fg { color: #258F8F; }
-.ansi-cyan-intense-bg { background-color: #258F8F; }
-.ansi-white-fg { color: #C5C1B4; }
-.ansi-white-bg { background-color: #C5C1B4; }
-.ansi-white-intense-fg { color: #A1A6B2; }
-.ansi-white-intense-bg { background-color: #A1A6B2; }
-
-.ansi-bold { font-weight: bold; }
-
-    </style>
-<style type="text/css">
-    body[data-notebook-name] > #header #header-container:not(.show-panel), /* body has data-notebook-name attribute when 
-a notebook is open. this rule won't be applied when the notebook is not open (in 404 view for example) */
-body[data-notebook-name] #menubar-container #maintoolbar:not(.show-panel),
-body[data-notebook-name] #menubar-container ul.navbar-nav:not(.show-panel) {
-  display: none;
-}
-
-#menubar.only-panel #menus.navbar-default {
-    background: #fff;
-    border-color: #fff;
-}
-
-.toolbar.with-statusbar{
-    margin-top: 3px;
-    margin-bottom: 0;
-}
-
-    </style>
 
 
 <style type="text/css">
@@ -13108,7 +13050,7 @@ div#notebook {
 
 <!-- Loading mathjax macro -->
 <!-- Load mathjax -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_HTML"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS_HTML"></script>
     <!-- MathJax configuration -->
     <script type="text/x-mathjax-config">
     MathJax.Hub.Config({
@@ -13135,11 +13077,11 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="ETL-Pipeline-Preparation">ETL Pipeline Preparation<a class="anchor-link" href="#ETL-Pipeline-Preparation">&#182;</a></h1><p>Follow the instructions below to help you create your ETL pipeline.</p>
-<h3 id="1.-Import-libraries-and-load-datasets.">1. Import libraries and load datasets.<a class="anchor-link" href="#1.-Import-libraries-and-load-datasets.">&#182;</a></h3><ul>
+<h1 id="ML-Pipeline-Preparation">ML Pipeline Preparation<a class="anchor-link" href="#ML-Pipeline-Preparation">&#182;</a></h1><p>Follow the instructions below to help you create your ML pipeline.</p>
+<h3 id="1.-Import-libraries-and-load-data-from-database.">1. Import libraries and load data from database.<a class="anchor-link" href="#1.-Import-libraries-and-load-data-from-database.">&#182;</a></h3><ul>
 <li>Import Python libraries</li>
-<li>Load <code>messages.csv</code> into a dataframe and inspect the first few lines.</li>
-<li>Load <code>categories.csv</code> into a dataframe and inspect the first few lines.</li>
+<li>Load dataset from database with <a href="https://pandas.pydata.org/pandas-docs/stable/generated/pandas.read_sql_table.html"><code>read_sql_table</code></a></li>
+<li>Define feature and target variables X and Y</li>
 </ul>
 
 </div>
@@ -13147,124 +13089,32 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="prompt input_prompt">In&nbsp;[24]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># import libraries</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="k">import</span> <span class="n">create_engine</span>
-</pre></div>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">nltk</span>
+<span class="n">nltk</span><span class="o">.</span><span class="n">download</span><span class="p">([</span><span class="s1">&#39;punkt&#39;</span><span class="p">,</span> <span class="s1">&#39;wordnet&#39;</span><span class="p">,</span> <span class="s1">&#39;averaged_perceptron_tagger&#39;</span><span class="p">])</span>
 
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[16]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># load messages dataset</span>
-<span class="n">messages</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;messages.csv&quot;</span><span class="p">)</span>
-<span class="n">messages</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[16]:</div>
-
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>id</th>
-      <th>message</th>
-      <th>original</th>
-      <th>genre</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>2</td>
-      <td>Weather update - a cold front from Cuba that c...</td>
-      <td>Un front froid se retrouve sur Cuba ce matin. ...</td>
-      <td>direct</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>7</td>
-      <td>Is the Hurricane over or is it not over</td>
-      <td>Cyclone nan fini osinon li pa fini</td>
-      <td>direct</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>8</td>
-      <td>Looking for someone but no name</td>
-      <td>Patnm, di Maryani relem pou li banm nouvel li ...</td>
-      <td>direct</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>9</td>
-      <td>UN reports Leogane 80-90 destroyed. Only Hospi...</td>
-      <td>UN reports Leogane 80-90 destroyed. Only Hospi...</td>
-      <td>direct</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>12</td>
-      <td>says: west side of Haiti, rest of the country ...</td>
-      <td>facade ouest d Haiti et le reste du pays aujou...</td>
-      <td>direct</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># load categories dataset</span>
-<span class="n">categories</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s2">&quot;categories.csv&quot;</span><span class="p">)</span>
-<span class="n">categories</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="k">import</span> <span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">train_test_split</span>
+<span class="kn">from</span> <span class="nn">sklearn.multioutput</span> <span class="k">import</span> <span class="n">MultiOutputClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="k">import</span> <span class="n">RandomForestClassifier</span><span class="p">,</span> <span class="n">GradientBoostingClassifier</span><span class="p">,</span><span class="n">AdaBoostClassifier</span>
+<span class="kn">from</span> <span class="nn">sklearn.feature_extraction.text</span> <span class="k">import</span> <span class="n">CountVectorizer</span><span class="p">,</span> <span class="n">TfidfTransformer</span>
+<span class="kn">from</span> <span class="nn">nltk.tokenize</span> <span class="k">import</span> <span class="n">word_tokenize</span>
+<span class="kn">from</span> <span class="nn">nltk.stem</span> <span class="k">import</span> <span class="n">WordNetLemmatizer</span>
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="k">import</span> <span class="n">Pipeline</span><span class="p">,</span> <span class="n">FeatureUnion</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">GridSearchCV</span>
+<span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">make_scorer</span><span class="p">,</span> <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">f1_score</span><span class="p">,</span> <span class="n">fbeta_score</span><span class="p">,</span> <span class="n">classification_report</span><span class="p">,</span> <span class="n">jaccard_score</span>
+<span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="k">import</span> <span class="n">hmean</span>
+<span class="kn">from</span> <span class="nn">scipy.stats.mstats</span> <span class="k">import</span> <span class="n">gmean</span>
+<span class="kn">from</span> <span class="nn">sklearn.externals</span> <span class="k">import</span> <span class="n">joblib</span>
 </pre></div>
 
     </div>
@@ -13277,66 +13127,42 @@ div#notebook {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[17]:</div>
+    <div class="prompt"></div>
 
 
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>id</th>
-      <th>categories</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>2</td>
-      <td>related-1;request-0;offer-0;aid_related-0;medi...</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>7</td>
-      <td>related-1;request-0;offer-0;aid_related-1;medi...</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>8</td>
-      <td>related-1;request-0;offer-0;aid_related-0;medi...</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>9</td>
-      <td>related-1;request-1;offer-0;aid_related-1;medi...</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>12</td>
-      <td>related-1;request-0;offer-0;aid_related-0;medi...</td>
-    </tr>
-  </tbody>
-</table>
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>[nltk_data] Downloading package punkt to
+[nltk_data]     /Users/evrenermis/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+[nltk_data] Downloading package wordnet to
+[nltk_data]     /Users/evrenermis/nltk_data...
+[nltk_data]   Package wordnet is already up-to-date!
+[nltk_data] Downloading package averaged_perceptron_tagger to
+[nltk_data]     /Users/evrenermis/nltk_data...
+[nltk_data]   Package averaged_perceptron_tagger is already up-to-
+[nltk_data]       date!
+</pre>
 </div>
 </div>
 
 </div>
+</div>
 
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># load data from database</span>
+<span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="s1">&#39;sqlite:///CleanData.db&#39;</span><span class="p">)</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_sql_table</span><span class="p">(</span><span class="s1">&#39;clean_dataset&#39;</span><span class="p">,</span><span class="n">engine</span><span class="p">)</span>
+<span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;message&quot;</span><span class="p">]</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">4</span><span class="p">:]]</span>
+<span class="n">category_names</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">4</span><span class="p">:]</span>
+</pre></div>
+
+    </div>
 </div>
 </div>
 
@@ -13344,22 +13170,18 @@ div#notebook {
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="2.-Merge-datasets.">2. Merge datasets.<a class="anchor-link" href="#2.-Merge-datasets.">&#182;</a></h3><ul>
-<li>Merge the messages and categories datasets using the common id</li>
-<li>Assign this combined dataset to <code>df</code>, which will be cleaned in the following steps</li>
-</ul>
-
+<h3 id="Sanity-Check-for-Data-Load"><i>Sanity Check for Data Load</i><a class="anchor-link" href="#Sanity-Check-for-Data-Load">&#182;</a></h3>
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># merge datasets</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">messages</span><span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">categories</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s2">&quot;id&quot;</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Check for X</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">X</span><span class="p">)))</span>
+<span class="n">X</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -13372,80 +13194,29 @@ div#notebook {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[18]:</div>
+    <div class="prompt"></div>
 
 
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>id</th>
-      <th>message</th>
-      <th>original</th>
-      <th>genre</th>
-      <th>categories</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>2</td>
-      <td>Weather update - a cold front from Cuba that c...</td>
-      <td>Un front froid se retrouve sur Cuba ce matin. ...</td>
-      <td>direct</td>
-      <td>related-1;request-0;offer-0;aid_related-0;medi...</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>7</td>
-      <td>Is the Hurricane over or is it not over</td>
-      <td>Cyclone nan fini osinon li pa fini</td>
-      <td>direct</td>
-      <td>related-1;request-0;offer-0;aid_related-1;medi...</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>8</td>
-      <td>Looking for someone but no name</td>
-      <td>Patnm, di Maryani relem pou li banm nouvel li ...</td>
-      <td>direct</td>
-      <td>related-1;request-0;offer-0;aid_related-0;medi...</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>9</td>
-      <td>UN reports Leogane 80-90 destroyed. Only Hospi...</td>
-      <td>UN reports Leogane 80-90 destroyed. Only Hospi...</td>
-      <td>direct</td>
-      <td>related-1;request-1;offer-0;aid_related-1;medi...</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>12</td>
-      <td>says: west side of Haiti, rest of the country ...</td>
-      <td>facade ouest d Haiti et le reste du pays aujou...</td>
-      <td>direct</td>
-      <td>related-1;request-0;offer-0;aid_related-0;medi...</td>
-    </tr>
-  </tbody>
-</table>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;class &#39;pandas.core.series.Series&#39;&gt;
+</pre>
 </div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[26]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>0    Weather update - a cold front from Cuba that c...
+1              Is the Hurricane over or is it not over
+2                      Looking for someone but no name
+3    UN reports Leogane 80-90 destroyed. Only Hospi...
+4    says: west side of Haiti, rest of the country ...
+Name: message, dtype: object</pre>
 </div>
 
 </div>
@@ -13453,28 +13224,15 @@ div#notebook {
 </div>
 </div>
 
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="3.-Split-categories-into-separate-category-columns.">3. Split <code>categories</code> into separate category columns.<a class="anchor-link" href="#3.-Split-categories-into-separate-category-columns.">&#182;</a></h3><ul>
-<li>Split the values in the <code>categories</code> column on the <code>;</code> character so that each value becomes a separate column. You'll find <a href="https://pandas.pydata.org/pandas-docs/version/0.23/generated/pandas.Series.str.split.html">this method</a> very helpful! Make sure to set <code>expand=True</code>.</li>
-<li>Use the first row of categories dataframe to create column names for the categories data.</li>
-<li>Rename columns of <code>categories</code> with new column names.</li>
-</ul>
-
-</div>
-</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># create a dataframe of the 36 individual category columns</span>
-<span class="n">categories</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">categories</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">pat</span><span class="o">=</span><span class="s2">&quot;;&quot;</span><span class="p">,</span> <span class="n">expand</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">categories</span><span class="p">)))</span>
-<span class="n">categories</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Check for Y</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">Y</span><span class="p">)))</span>
+<span class="n">Y</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -13498,281 +13256,7 @@ div#notebook {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[19]:</div>
-
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>0</th>
-      <th>1</th>
-      <th>2</th>
-      <th>3</th>
-      <th>4</th>
-      <th>5</th>
-      <th>6</th>
-      <th>7</th>
-      <th>8</th>
-      <th>9</th>
-      <th>...</th>
-      <th>26</th>
-      <th>27</th>
-      <th>28</th>
-      <th>29</th>
-      <th>30</th>
-      <th>31</th>
-      <th>32</th>
-      <th>33</th>
-      <th>34</th>
-      <th>35</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>related-1</td>
-      <td>request-0</td>
-      <td>offer-0</td>
-      <td>aid_related-0</td>
-      <td>medical_help-0</td>
-      <td>medical_products-0</td>
-      <td>search_and_rescue-0</td>
-      <td>security-0</td>
-      <td>military-0</td>
-      <td>child_alone-0</td>
-      <td>...</td>
-      <td>aid_centers-0</td>
-      <td>other_infrastructure-0</td>
-      <td>weather_related-0</td>
-      <td>floods-0</td>
-      <td>storm-0</td>
-      <td>fire-0</td>
-      <td>earthquake-0</td>
-      <td>cold-0</td>
-      <td>other_weather-0</td>
-      <td>direct_report-0</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>related-1</td>
-      <td>request-0</td>
-      <td>offer-0</td>
-      <td>aid_related-1</td>
-      <td>medical_help-0</td>
-      <td>medical_products-0</td>
-      <td>search_and_rescue-0</td>
-      <td>security-0</td>
-      <td>military-0</td>
-      <td>child_alone-0</td>
-      <td>...</td>
-      <td>aid_centers-0</td>
-      <td>other_infrastructure-0</td>
-      <td>weather_related-1</td>
-      <td>floods-0</td>
-      <td>storm-1</td>
-      <td>fire-0</td>
-      <td>earthquake-0</td>
-      <td>cold-0</td>
-      <td>other_weather-0</td>
-      <td>direct_report-0</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>related-1</td>
-      <td>request-0</td>
-      <td>offer-0</td>
-      <td>aid_related-0</td>
-      <td>medical_help-0</td>
-      <td>medical_products-0</td>
-      <td>search_and_rescue-0</td>
-      <td>security-0</td>
-      <td>military-0</td>
-      <td>child_alone-0</td>
-      <td>...</td>
-      <td>aid_centers-0</td>
-      <td>other_infrastructure-0</td>
-      <td>weather_related-0</td>
-      <td>floods-0</td>
-      <td>storm-0</td>
-      <td>fire-0</td>
-      <td>earthquake-0</td>
-      <td>cold-0</td>
-      <td>other_weather-0</td>
-      <td>direct_report-0</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>related-1</td>
-      <td>request-1</td>
-      <td>offer-0</td>
-      <td>aid_related-1</td>
-      <td>medical_help-0</td>
-      <td>medical_products-1</td>
-      <td>search_and_rescue-0</td>
-      <td>security-0</td>
-      <td>military-0</td>
-      <td>child_alone-0</td>
-      <td>...</td>
-      <td>aid_centers-0</td>
-      <td>other_infrastructure-0</td>
-      <td>weather_related-0</td>
-      <td>floods-0</td>
-      <td>storm-0</td>
-      <td>fire-0</td>
-      <td>earthquake-0</td>
-      <td>cold-0</td>
-      <td>other_weather-0</td>
-      <td>direct_report-0</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>related-1</td>
-      <td>request-0</td>
-      <td>offer-0</td>
-      <td>aid_related-0</td>
-      <td>medical_help-0</td>
-      <td>medical_products-0</td>
-      <td>search_and_rescue-0</td>
-      <td>security-0</td>
-      <td>military-0</td>
-      <td>child_alone-0</td>
-      <td>...</td>
-      <td>aid_centers-0</td>
-      <td>other_infrastructure-0</td>
-      <td>weather_related-0</td>
-      <td>floods-0</td>
-      <td>storm-0</td>
-      <td>fire-0</td>
-      <td>earthquake-0</td>
-      <td>cold-0</td>
-      <td>other_weather-0</td>
-      <td>direct_report-0</td>
-    </tr>
-  </tbody>
-</table>
-<p>5 rows × 36 columns</p>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># select the first row of the categories dataframe</span>
-<span class="n">row</span> <span class="o">=</span> <span class="n">categories</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">,:]</span>
-<span class="c1">#print(row)</span>
-
-<span class="c1"># use this row to extract a list of new column names for categories.</span>
-<span class="c1"># one way is to apply a lambda function that takes everything </span>
-<span class="c1"># up to the second to last character of each string with slicing</span>
-<span class="n">category_colnames</span> <span class="o">=</span> <span class="n">row</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="n">x</span><span class="p">[:</span><span class="o">-</span><span class="mi">2</span><span class="p">])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">category_colnames</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>0                    related
-1                    request
-2                      offer
-3                aid_related
-4               medical_help
-5           medical_products
-6          search_and_rescue
-7                   security
-8                   military
-9                child_alone
-10                     water
-11                      food
-12                   shelter
-13                  clothing
-14                     money
-15            missing_people
-16                  refugees
-17                     death
-18                 other_aid
-19    infrastructure_related
-20                 transport
-21                 buildings
-22               electricity
-23                     tools
-24                 hospitals
-25                     shops
-26               aid_centers
-27      other_infrastructure
-28           weather_related
-29                    floods
-30                     storm
-31                      fire
-32                earthquake
-33                      cold
-34             other_weather
-35             direct_report
-Name: 0, dtype: object
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># rename the columns of `categories`</span>
-<span class="n">categories</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">category_colnames</span>
-<span class="n">categories</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[21]:</div>
+    <div class="prompt output_prompt">Out[27]:</div>
 
 
 
@@ -13820,222 +13304,7 @@ Name: 0, dtype: object
   </thead>
   <tbody>
     <tr>
-      <th>0</th>
-      <td>related-1</td>
-      <td>request-0</td>
-      <td>offer-0</td>
-      <td>aid_related-0</td>
-      <td>medical_help-0</td>
-      <td>medical_products-0</td>
-      <td>search_and_rescue-0</td>
-      <td>security-0</td>
-      <td>military-0</td>
-      <td>child_alone-0</td>
-      <td>...</td>
-      <td>aid_centers-0</td>
-      <td>other_infrastructure-0</td>
-      <td>weather_related-0</td>
-      <td>floods-0</td>
-      <td>storm-0</td>
-      <td>fire-0</td>
-      <td>earthquake-0</td>
-      <td>cold-0</td>
-      <td>other_weather-0</td>
-      <td>direct_report-0</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>related-1</td>
-      <td>request-0</td>
-      <td>offer-0</td>
-      <td>aid_related-1</td>
-      <td>medical_help-0</td>
-      <td>medical_products-0</td>
-      <td>search_and_rescue-0</td>
-      <td>security-0</td>
-      <td>military-0</td>
-      <td>child_alone-0</td>
-      <td>...</td>
-      <td>aid_centers-0</td>
-      <td>other_infrastructure-0</td>
-      <td>weather_related-1</td>
-      <td>floods-0</td>
-      <td>storm-1</td>
-      <td>fire-0</td>
-      <td>earthquake-0</td>
-      <td>cold-0</td>
-      <td>other_weather-0</td>
-      <td>direct_report-0</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>related-1</td>
-      <td>request-0</td>
-      <td>offer-0</td>
-      <td>aid_related-0</td>
-      <td>medical_help-0</td>
-      <td>medical_products-0</td>
-      <td>search_and_rescue-0</td>
-      <td>security-0</td>
-      <td>military-0</td>
-      <td>child_alone-0</td>
-      <td>...</td>
-      <td>aid_centers-0</td>
-      <td>other_infrastructure-0</td>
-      <td>weather_related-0</td>
-      <td>floods-0</td>
-      <td>storm-0</td>
-      <td>fire-0</td>
-      <td>earthquake-0</td>
-      <td>cold-0</td>
-      <td>other_weather-0</td>
-      <td>direct_report-0</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>related-1</td>
-      <td>request-1</td>
-      <td>offer-0</td>
-      <td>aid_related-1</td>
-      <td>medical_help-0</td>
-      <td>medical_products-1</td>
-      <td>search_and_rescue-0</td>
-      <td>security-0</td>
-      <td>military-0</td>
-      <td>child_alone-0</td>
-      <td>...</td>
-      <td>aid_centers-0</td>
-      <td>other_infrastructure-0</td>
-      <td>weather_related-0</td>
-      <td>floods-0</td>
-      <td>storm-0</td>
-      <td>fire-0</td>
-      <td>earthquake-0</td>
-      <td>cold-0</td>
-      <td>other_weather-0</td>
-      <td>direct_report-0</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>related-1</td>
-      <td>request-0</td>
-      <td>offer-0</td>
-      <td>aid_related-0</td>
-      <td>medical_help-0</td>
-      <td>medical_products-0</td>
-      <td>search_and_rescue-0</td>
-      <td>security-0</td>
-      <td>military-0</td>
-      <td>child_alone-0</td>
-      <td>...</td>
-      <td>aid_centers-0</td>
-      <td>other_infrastructure-0</td>
-      <td>weather_related-0</td>
-      <td>floods-0</td>
-      <td>storm-0</td>
-      <td>fire-0</td>
-      <td>earthquake-0</td>
-      <td>cold-0</td>
-      <td>other_weather-0</td>
-      <td>direct_report-0</td>
-    </tr>
-  </tbody>
-</table>
-<p>5 rows × 36 columns</p>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="4.-Convert-category-values-to-just-numbers-0-or-1.">4. Convert category values to just numbers 0 or 1.<a class="anchor-link" href="#4.-Convert-category-values-to-just-numbers-0-or-1.">&#182;</a></h3><ul>
-<li>Iterate through the category columns in df to keep only the last character of each string (the 1 or 0). For example, <code>related-0</code> becomes <code>0</code>, <code>related-1</code> becomes <code>1</code>. Convert the string to a numeric value.</li>
-<li>You can perform <a href="https://pandas.pydata.org/pandas-docs/stable/text.html#indexing-with-str">normal string actions on Pandas Series</a>, like indexing, by including <code>.str</code> after the Series. You may need to first convert the Series to be of type string, which you can do with <code>astype(str)</code>.</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">categories</span><span class="p">:</span>
-    <span class="c1"># set each value to be the last character of the string</span>
-    <span class="n">categories</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">=</span> <span class="n">categories</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-    
-    <span class="c1"># convert column from string to numeric</span>
-    <span class="n">categories</span><span class="p">[</span><span class="n">column</span><span class="p">]</span> <span class="o">=</span> <span class="n">categories</span><span class="p">[</span><span class="n">column</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">int</span><span class="p">)</span>
-
-<span class="n">categories</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[22]:</div>
-
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>related</th>
-      <th>request</th>
-      <th>offer</th>
-      <th>aid_related</th>
-      <th>medical_help</th>
-      <th>medical_products</th>
-      <th>search_and_rescue</th>
-      <th>security</th>
-      <th>military</th>
-      <th>child_alone</th>
-      <th>...</th>
-      <th>aid_centers</th>
-      <th>other_infrastructure</th>
-      <th>weather_related</th>
-      <th>floods</th>
-      <th>storm</th>
-      <th>fire</th>
-      <th>earthquake</th>
-      <th>cold</th>
-      <th>other_weather</th>
-      <th>direct_report</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
+      <td>0</td>
       <td>1</td>
       <td>0</td>
       <td>0</td>
@@ -14059,7 +13328,7 @@ Name: 0, dtype: object
       <td>0</td>
     </tr>
     <tr>
-      <th>1</th>
+      <td>1</td>
       <td>1</td>
       <td>0</td>
       <td>0</td>
@@ -14083,7 +13352,7 @@ Name: 0, dtype: object
       <td>0</td>
     </tr>
     <tr>
-      <th>2</th>
+      <td>2</td>
       <td>1</td>
       <td>0</td>
       <td>0</td>
@@ -14107,7 +13376,7 @@ Name: 0, dtype: object
       <td>0</td>
     </tr>
     <tr>
-      <th>3</th>
+      <td>3</td>
       <td>1</td>
       <td>1</td>
       <td>0</td>
@@ -14131,7 +13400,7 @@ Name: 0, dtype: object
       <td>0</td>
     </tr>
     <tr>
-      <th>4</th>
+      <td>4</td>
       <td>1</td>
       <td>0</td>
       <td>0</td>
@@ -14165,424 +13434,89 @@ Name: 0, dtype: object
 </div>
 </div>
 
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="5.-Replace-categories-column-in-df-with-new-category-columns.">5. Replace <code>categories</code> column in <code>df</code> with new category columns.<a class="anchor-link" href="#5.-Replace-categories-column-in-df-with-new-category-columns.">&#182;</a></h3><ul>
-<li>Drop the categories column from the df dataframe since it is no longer needed.</li>
-<li>Concatenate df and categories data frames.</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[23]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># drop the original categories column from `df`</span>
-<span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="s2">&quot;categories&quot;</span><span class="p">,</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[23]:</div>
-
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>id</th>
-      <th>message</th>
-      <th>original</th>
-      <th>genre</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>2</td>
-      <td>Weather update - a cold front from Cuba that c...</td>
-      <td>Un front froid se retrouve sur Cuba ce matin. ...</td>
-      <td>direct</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>7</td>
-      <td>Is the Hurricane over or is it not over</td>
-      <td>Cyclone nan fini osinon li pa fini</td>
-      <td>direct</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>8</td>
-      <td>Looking for someone but no name</td>
-      <td>Patnm, di Maryani relem pou li banm nouvel li ...</td>
-      <td>direct</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>9</td>
-      <td>UN reports Leogane 80-90 destroyed. Only Hospi...</td>
-      <td>UN reports Leogane 80-90 destroyed. Only Hospi...</td>
-      <td>direct</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>12</td>
-      <td>says: west side of Haiti, rest of the country ...</td>
-      <td>facade ouest d Haiti et le reste du pays aujou...</td>
-      <td>direct</td>
-    </tr>
-  </tbody>
-</table>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[24]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># concatenate the original dataframe with the new `categories` dataframe</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span><span class="n">df</span><span class="p">,</span> <span class="n">categories</span><span class="p">],</span><span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[24]:</div>
-
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-<div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>id</th>
-      <th>message</th>
-      <th>original</th>
-      <th>genre</th>
-      <th>related</th>
-      <th>request</th>
-      <th>offer</th>
-      <th>aid_related</th>
-      <th>medical_help</th>
-      <th>medical_products</th>
-      <th>...</th>
-      <th>aid_centers</th>
-      <th>other_infrastructure</th>
-      <th>weather_related</th>
-      <th>floods</th>
-      <th>storm</th>
-      <th>fire</th>
-      <th>earthquake</th>
-      <th>cold</th>
-      <th>other_weather</th>
-      <th>direct_report</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>2</td>
-      <td>Weather update - a cold front from Cuba that c...</td>
-      <td>Un front froid se retrouve sur Cuba ce matin. ...</td>
-      <td>direct</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>...</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>7</td>
-      <td>Is the Hurricane over or is it not over</td>
-      <td>Cyclone nan fini osinon li pa fini</td>
-      <td>direct</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>...</td>
-      <td>0</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>8</td>
-      <td>Looking for someone but no name</td>
-      <td>Patnm, di Maryani relem pou li banm nouvel li ...</td>
-      <td>direct</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>...</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>9</td>
-      <td>UN reports Leogane 80-90 destroyed. Only Hospi...</td>
-      <td>UN reports Leogane 80-90 destroyed. Only Hospi...</td>
-      <td>direct</td>
-      <td>1</td>
-      <td>1</td>
-      <td>0</td>
-      <td>1</td>
-      <td>0</td>
-      <td>1</td>
-      <td>...</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>12</td>
-      <td>says: west side of Haiti, rest of the country ...</td>
-      <td>facade ouest d Haiti et le reste du pays aujou...</td>
-      <td>direct</td>
-      <td>1</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>...</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0</td>
-    </tr>
-  </tbody>
-</table>
-<p>5 rows × 40 columns</p>
-</div>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="6.-Remove-duplicates.">6. Remove duplicates.<a class="anchor-link" href="#6.-Remove-duplicates.">&#182;</a></h3><ul>
-<li>Check how many duplicates are in this dataset.</li>
-<li>Drop the duplicates.</li>
-<li>Confirm duplicates were removed.</li>
-</ul>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[25]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># check number of duplicates</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The number of duplicated rows: </span><span class="si">{}</span><span class="s2"> in the dataset of: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>The number of duplicated rows: 170 in the dataset of: 26386
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[26]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># drop duplicates</span>
-<span class="n">df</span><span class="o">.</span><span class="n">drop_duplicates</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[27]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># check number of duplicates</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;The number of duplicate rows: </span><span class="si">{}</span><span class="s2"> in the dataset of: </span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">(),</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
-
-<span class="k">if</span> <span class="n">df</span><span class="o">.</span><span class="n">duplicated</span><span class="p">()</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Pre-processing is completed&quot;</span><span class="p">)</span>
-<span class="k">else</span><span class="p">:</span>
-    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;duplicate rows still exist&quot;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>The number of duplicate rows: 0 in the dataset of: 26216
-Pre-processing is completed
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
-</div><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="7.-Save-the-clean-dataset-into-an-sqlite-database.">7. Save the clean dataset into an sqlite database.<a class="anchor-link" href="#7.-Save-the-clean-dataset-into-an-sqlite-database.">&#182;</a></h3><p>You can do this with pandas <a href="https://pandas.pydata.org/pandas-docs/stable/generated/pandas.DataFrame.to_sql.html"><code>to_sql</code> method</a> combined with the SQLAlchemy library. Remember to import SQLAlchemy's <code>create_engine</code> in the first cell of this notebook to use it below.</p>
-
-</div>
-</div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
 <div class="prompt input_prompt">In&nbsp;[28]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">engine</span> <span class="o">=</span> <span class="n">create_engine</span><span class="p">(</span><span class="s1">&#39;sqlite:///CleanData.db&#39;</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">to_sql</span><span class="p">(</span><span class="s1">&#39;clean_dataset&#39;</span><span class="p">,</span> <span class="n">engine</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Check for category_names</span>
+<span class="nb">print</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="n">category_names</span><span class="p">)))</span>
+<span class="n">category_names</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>&lt;class &#39;pandas.core.indexes.base.Index&#39;&gt;
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[28]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Index([&#39;related&#39;, &#39;request&#39;, &#39;offer&#39;, &#39;aid_related&#39;, &#39;medical_help&#39;,
+       &#39;medical_products&#39;, &#39;search_and_rescue&#39;, &#39;security&#39;, &#39;military&#39;,
+       &#39;child_alone&#39;, &#39;water&#39;, &#39;food&#39;, &#39;shelter&#39;, &#39;clothing&#39;, &#39;money&#39;,
+       &#39;missing_people&#39;, &#39;refugees&#39;, &#39;death&#39;, &#39;other_aid&#39;,
+       &#39;infrastructure_related&#39;, &#39;transport&#39;, &#39;buildings&#39;, &#39;electricity&#39;,
+       &#39;tools&#39;, &#39;hospitals&#39;, &#39;shops&#39;, &#39;aid_centers&#39;, &#39;other_infrastructure&#39;,
+       &#39;weather_related&#39;, &#39;floods&#39;, &#39;storm&#39;, &#39;fire&#39;, &#39;earthquake&#39;, &#39;cold&#39;,
+       &#39;other_weather&#39;, &#39;direct_report&#39;],
+      dtype=&#39;object&#39;)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="2.-Write-a-tokenization-function-to-process-your-text-data">2. Write a tokenization function to process your text data<a class="anchor-link" href="#2.-Write-a-tokenization-function-to-process-your-text-data">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">tokenize</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+    <span class="c1"># Same tokenizer function which has been explained in NLP Pipeline Section</span>
+    <span class="n">url_regex</span> <span class="o">=</span> <span class="s1">&#39;http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&amp;+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+&#39;</span>
+    <span class="n">detected_urls</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">url_regex</span><span class="p">,</span> <span class="n">text</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">url</span> <span class="ow">in</span> <span class="n">detected_urls</span><span class="p">:</span>
+        <span class="n">text</span> <span class="o">=</span> <span class="n">text</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="s2">&quot;urlplaceholder&quot;</span><span class="p">)</span>
+    
+    <span class="n">tokens</span> <span class="o">=</span> <span class="n">word_tokenize</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+    <span class="n">lemmatizer</span> <span class="o">=</span> <span class="n">WordNetLemmatizer</span><span class="p">()</span>
+    
+    <span class="n">clean_tokens</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">tok</span> <span class="ow">in</span> <span class="n">tokens</span><span class="p">:</span>
+        <span class="n">clean_tok</span> <span class="o">=</span> <span class="n">lemmatizer</span><span class="o">.</span><span class="n">lemmatize</span><span class="p">(</span><span class="n">tok</span><span class="p">)</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+        <span class="n">clean_tokens</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">clean_tok</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">clean_tokens</span>
 </pre></div>
 
     </div>
@@ -14593,7 +13527,2141 @@ Pre-processing is completed
 <div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
 </div><div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="8.-Use-this-notebook-to-complete-etl_pipeline.py">8. Use this notebook to complete <code>etl_pipeline.py</code><a class="anchor-link" href="#8.-Use-this-notebook-to-complete-etl_pipeline.py">&#182;</a></h3><p>Use the template file attached in the Resources folder to write a script that runs the steps above to create a database based on new datasets specified by the user. Alternatively, you can complete <code>etl_pipeline.py</code> in the classroom on the <code>Project Workspace IDE</code> coming later.</p>
+<h3 id="3.-Build-a-machine-learning-pipeline">3. Build a machine learning pipeline<a class="anchor-link" href="#3.-Build-a-machine-learning-pipeline">&#182;</a></h3><p>This machine pipeline should take in the <code>message</code> column as input and output classification results on the other 36 categories in the dataset. You may find the <a href="http://scikit-learn.org/stable/modules/generated/sklearn.multioutput.MultiOutputClassifier.html">MultiOutputClassifier</a> helpful for predicting multiple target variables.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Message-To-Reader"><i>Message To Reader</i><a class="anchor-link" href="#Message-To-Reader">&#182;</a></h3><p>In order to build promising machine learning pipeline, the model from
+Machine Learning Pipeline - Solution: GridSearch Section has been used.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">class</span> <span class="nc">StartingVerbExtractor</span><span class="p">(</span><span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">starting_verb</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+        <span class="n">sentence_list</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">sent_tokenize</span><span class="p">(</span><span class="n">text</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">sentence</span> <span class="ow">in</span> <span class="n">sentence_list</span><span class="p">:</span>
+            <span class="n">pos_tags</span> <span class="o">=</span> <span class="n">nltk</span><span class="o">.</span><span class="n">pos_tag</span><span class="p">(</span><span class="n">tokenize</span><span class="p">(</span><span class="n">sentence</span><span class="p">))</span>
+            <span class="n">first_word</span><span class="p">,</span> <span class="n">first_tag</span> <span class="o">=</span> <span class="n">pos_tags</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">first_tag</span> <span class="ow">in</span> <span class="p">[</span><span class="s1">&#39;VB&#39;</span><span class="p">,</span> <span class="s1">&#39;VBP&#39;</span><span class="p">]</span> <span class="ow">or</span> <span class="n">first_word</span> <span class="o">==</span> <span class="s1">&#39;RT&#39;</span><span class="p">:</span>
+                <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">return</span> <span class="kc">False</span>
+
+    <span class="k">def</span> <span class="nf">fit</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">X</span><span class="p">):</span>
+        <span class="n">X_tagged</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">(</span><span class="n">X</span><span class="p">)</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">starting_verb</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">X_tagged</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[31]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">build_model</span><span class="p">():</span>
+    
+    <span class="n">pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
+        <span class="p">(</span><span class="s1">&#39;features&#39;</span><span class="p">,</span> <span class="n">FeatureUnion</span><span class="p">([</span>
+            
+            <span class="p">(</span><span class="s1">&#39;text_pipeline&#39;</span><span class="p">,</span> <span class="n">Pipeline</span><span class="p">([</span>
+                <span class="p">(</span><span class="s1">&#39;vect&#39;</span><span class="p">,</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="n">tokenizer</span><span class="o">=</span><span class="n">tokenize</span><span class="p">)),</span>
+                <span class="p">(</span><span class="s1">&#39;tfidf&#39;</span><span class="p">,</span> <span class="n">TfidfTransformer</span><span class="p">())</span>
+            <span class="p">])),</span>
+            
+            <span class="p">(</span><span class="s1">&#39;starting_verb&#39;</span><span class="p">,</span> <span class="n">StartingVerbExtractor</span><span class="p">())</span>
+        <span class="p">])),</span>
+    
+        <span class="p">(</span><span class="s1">&#39;clf&#39;</span><span class="p">,</span> <span class="n">MultiOutputClassifier</span><span class="p">(</span><span class="n">RandomForestClassifier</span><span class="p">()))</span>
+    <span class="p">])</span>
+    
+    <span class="k">return</span> <span class="n">pipeline</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[32]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
+<span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[38]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x_train</span><span class="p">,</span> <span class="n">x_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span><span class="n">X</span><span class="p">,</span> <span class="n">Y</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[39]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">build_model</span><span class="p">()</span>
+<span class="n">model</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span><span class="n">y_train</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[39]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>Pipeline(memory=None,
+         steps=[(&#39;features&#39;,
+                 FeatureUnion(n_jobs=None,
+                              transformer_list=[(&#39;text_pipeline&#39;,
+                                                 Pipeline(memory=None,
+                                                          steps=[(&#39;vect&#39;,
+                                                                  CountVectorizer(analyzer=&#39;word&#39;,
+                                                                                  binary=False,
+                                                                                  decode_error=&#39;strict&#39;,
+                                                                                  dtype=&lt;class &#39;numpy.int64&#39;&gt;,
+                                                                                  encoding=&#39;utf-8&#39;,
+                                                                                  input=&#39;content&#39;,
+                                                                                  lowercase=True,
+                                                                                  max_df=1.0,
+                                                                                  max_features=None,
+                                                                                  min_df=1,
+                                                                                  ngram_range=(1,
+                                                                                               1),
+                                                                                  preprocessor=Non...
+                 MultiOutputClassifier(estimator=RandomForestClassifier(bootstrap=True,
+                                                                        class_weight=None,
+                                                                        criterion=&#39;gini&#39;,
+                                                                        max_depth=None,
+                                                                        max_features=&#39;auto&#39;,
+                                                                        max_leaf_nodes=None,
+                                                                        min_impurity_decrease=0.0,
+                                                                        min_impurity_split=None,
+                                                                        min_samples_leaf=1,
+                                                                        min_samples_split=2,
+                                                                        min_weight_fraction_leaf=0.0,
+                                                                        n_estimators=&#39;warn&#39;,
+                                                                        n_jobs=None,
+                                                                        oob_score=False,
+                                                                        random_state=None,
+                                                                        verbose=0,
+                                                                        warm_start=False),
+                                       n_jobs=None))],
+         verbose=False)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Sanity-Check"><i>Sanity Check</i><a class="anchor-link" href="#Sanity-Check">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[40]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">100</span><span class="p">][</span><span class="s2">&quot;message&quot;</span><span class="p">]</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[40]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&#39;The message might be saying that they have been stuck in the presidential palace ( pal ) since the same Tuesday ( as the quake ). They need water. The message says they are not finding a little water. No names, no number of people given.&#39;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[41]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">msg</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">msg</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">100</span><span class="p">][</span><span class="s2">&quot;message&quot;</span><span class="p">])</span>
+<span class="n">test_output</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">msg</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">y_train</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">values</span><span class="p">[(</span><span class="n">test_output</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span><span class="o">==</span><span class="mi">1</span><span class="p">)])</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>[&#39;related&#39; &#39;request&#39; &#39;aid_related&#39; &#39;water&#39; &#39;weather_related&#39; &#39;earthquake&#39;]
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h4 id="Excellent-!---Results-are-reasonable"><i>Excellent ! - Results are reasonable</i><a class="anchor-link" href="#Excellent-!---Results-are-reasonable">&#182;</a></h4>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="5.-Test-your-model">5. Test your model<a class="anchor-link" href="#5.-Test-your-model">&#182;</a></h3><p>Report the f1 score, precision and recall for each output category of the dataset. You can do this by iterating through the columns and calling sklearn's <code>classification_report</code> on each.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[42]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Get predictions </span>
+<span class="n">y_predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[43]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Sanity check for predictions</span>
+<span class="n">y_predictions</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[43]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([[1, 0, 0, ..., 0, 0, 0],
+       [1, 1, 0, ..., 0, 0, 0],
+       [1, 0, 0, ..., 0, 0, 0],
+       ...,
+       [0, 0, 0, ..., 0, 0, 0],
+       [1, 0, 0, ..., 0, 0, 0],
+       [0, 0, 0, ..., 0, 0, 0]])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[44]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Sanity check for dataframe version</span>
+<span class="n">y_predictions_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">y_predictions</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="n">y_test</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+<span class="n">y_predictions_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[44]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>related</th>
+      <th>request</th>
+      <th>offer</th>
+      <th>aid_related</th>
+      <th>medical_help</th>
+      <th>medical_products</th>
+      <th>search_and_rescue</th>
+      <th>security</th>
+      <th>military</th>
+      <th>child_alone</th>
+      <th>...</th>
+      <th>aid_centers</th>
+      <th>other_infrastructure</th>
+      <th>weather_related</th>
+      <th>floods</th>
+      <th>storm</th>
+      <th>fire</th>
+      <th>earthquake</th>
+      <th>cold</th>
+      <th>other_weather</th>
+      <th>direct_report</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 36 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[45]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Print classification report</span>
+<span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">y_test</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;....................................................</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;FEATURE: </span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">column</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">[</span><span class="n">column</span><span class="p">],</span><span class="n">y_predictions_df</span><span class="p">[</span><span class="n">column</span><span class="p">]))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>....................................................
+
+FEATURE: related
+
+              precision    recall  f1-score   support
+
+           0       0.61      0.34      0.44      1534
+           1       0.81      0.93      0.87      4956
+           2       1.00      0.16      0.27        64
+
+    accuracy                           0.79      6554
+   macro avg       0.81      0.48      0.53      6554
+weighted avg       0.77      0.79      0.76      6554
+
+....................................................
+
+FEATURE: request
+
+              precision    recall  f1-score   support
+
+           0       0.88      0.98      0.93      5431
+           1       0.81      0.37      0.51      1123
+
+    accuracy                           0.88      6554
+   macro avg       0.85      0.68      0.72      6554
+weighted avg       0.87      0.88      0.86      6554
+
+....................................................
+
+FEATURE: offer
+
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00      6524
+           1       0.00      0.00      0.00        30
+
+    accuracy                           1.00      6554
+   macro avg       0.50      0.50      0.50      6554
+weighted avg       0.99      1.00      0.99      6554
+
+....................................................
+
+FEATURE: aid_related
+
+              precision    recall  f1-score   support
+
+           0       0.72      0.88      0.79      3877
+           1       0.75      0.50      0.60      2677
+
+    accuracy                           0.73      6554
+   macro avg       0.73      0.69      0.70      6554
+weighted avg       0.73      0.73      0.72      6554
+
+....................................................
+
+FEATURE: medical_help
+
+              precision    recall  f1-score   support
+
+           0       0.93      1.00      0.96      6051
+           1       0.58      0.08      0.13       503
+
+    accuracy                           0.92      6554
+   macro avg       0.76      0.54      0.55      6554
+weighted avg       0.90      0.92      0.90      6554
+
+....................................................
+
+FEATURE: medical_products
+
+              precision    recall  f1-score   support
+
+           0       0.96      1.00      0.98      6241
+           1       0.61      0.07      0.13       313
+
+    accuracy                           0.95      6554
+   macro avg       0.78      0.53      0.55      6554
+weighted avg       0.94      0.95      0.94      6554
+
+....................................................
+
+FEATURE: search_and_rescue
+
+              precision    recall  f1-score   support
+
+           0       0.98      1.00      0.99      6386
+           1       0.50      0.05      0.09       168
+
+    accuracy                           0.97      6554
+   macro avg       0.74      0.52      0.54      6554
+weighted avg       0.96      0.97      0.96      6554
+
+....................................................
+
+FEATURE: security
+
+              precision    recall  f1-score   support
+
+           0       0.98      1.00      0.99      6438
+           1       0.25      0.01      0.02       116
+
+    accuracy                           0.98      6554
+   macro avg       0.62      0.50      0.50      6554
+weighted avg       0.97      0.98      0.97      6554
+
+....................................................
+
+FEATURE: military
+
+              precision    recall  f1-score   support
+
+           0       0.97      1.00      0.98      6320
+           1       0.56      0.06      0.11       234
+
+    accuracy                           0.96      6554
+   macro avg       0.76      0.53      0.55      6554
+weighted avg       0.95      0.96      0.95      6554
+
+....................................................
+
+FEATURE: child_alone
+
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00      6554
+
+    accuracy                           1.00      6554
+   macro avg       1.00      1.00      1.00      6554
+weighted avg       1.00      1.00      1.00      6554
+
+....................................................
+
+FEATURE: water
+
+              precision    recall  f1-score   support
+
+           0       0.95      1.00      0.97      6140
+           1       0.85      0.25      0.39       414
+
+    accuracy                           0.95      6554
+   macro avg       0.90      0.63      0.68      6554
+weighted avg       0.95      0.95      0.94      6554
+
+....................................................
+
+FEATURE: food
+
+              precision    recall  f1-score   support
+
+           0       0.92      0.99      0.95      5811
+           1       0.85      0.32      0.46       743
+
+    accuracy                           0.92      6554
+   macro avg       0.88      0.66      0.71      6554
+weighted avg       0.91      0.92      0.90      6554
+
+....................................................
+
+FEATURE: shelter
+
+              precision    recall  f1-score   support
+
+           0       0.93      1.00      0.96      5961
+           1       0.81      0.21      0.33       593
+
+    accuracy                           0.92      6554
+   macro avg       0.87      0.60      0.65      6554
+weighted avg       0.92      0.92      0.90      6554
+
+....................................................
+
+FEATURE: clothing
+
+              precision    recall  f1-score   support
+
+           0       0.99      1.00      0.99      6459
+           1       1.00      0.03      0.06        95
+
+    accuracy                           0.99      6554
+   macro avg       0.99      0.52      0.53      6554
+weighted avg       0.99      0.99      0.98      6554
+
+....................................................
+
+FEATURE: money
+
+              precision    recall  f1-score   support
+
+           0       0.97      1.00      0.99      6382
+           1       0.80      0.02      0.05       172
+
+    accuracy                           0.97      6554
+   macro avg       0.89      0.51      0.52      6554
+weighted avg       0.97      0.97      0.96      6554
+
+....................................................
+
+FEATURE: missing_people
+
+              precision    recall  f1-score   support
+
+           0       0.99      1.00      1.00      6489
+           1       1.00      0.02      0.03        65
+
+    accuracy                           0.99      6554
+   macro avg       1.00      0.51      0.51      6554
+weighted avg       0.99      0.99      0.99      6554
+
+....................................................
+
+FEATURE: refugees
+
+              precision    recall  f1-score   support
+
+           0       0.97      1.00      0.98      6328
+           1       0.69      0.04      0.08       226
+
+    accuracy                           0.97      6554
+   macro avg       0.83      0.52      0.53      6554
+weighted avg       0.96      0.97      0.95      6554
+
+....................................................
+
+FEATURE: death
+
+              precision    recall  f1-score   support
+
+           0       0.96      1.00      0.98      6257
+           1       0.82      0.16      0.27       297
+
+    accuracy                           0.96      6554
+   macro avg       0.89      0.58      0.63      6554
+weighted avg       0.96      0.96      0.95      6554
+
+....................................................
+
+FEATURE: other_aid
+
+              precision    recall  f1-score   support
+
+           0       0.88      1.00      0.93      5720
+           1       0.63      0.03      0.05       834
+
+    accuracy                           0.87      6554
+   macro avg       0.75      0.51      0.49      6554
+weighted avg       0.84      0.87      0.82      6554
+
+....................................................
+
+FEATURE: infrastructure_related
+
+              precision    recall  f1-score   support
+
+           0       0.94      1.00      0.97      6127
+           1       0.50      0.00      0.01       427
+
+    accuracy                           0.93      6554
+   macro avg       0.72      0.50      0.49      6554
+weighted avg       0.91      0.93      0.90      6554
+
+....................................................
+
+FEATURE: transport
+
+              precision    recall  f1-score   support
+
+           0       0.96      1.00      0.98      6272
+           1       0.74      0.11      0.19       282
+
+    accuracy                           0.96      6554
+   macro avg       0.85      0.55      0.59      6554
+weighted avg       0.95      0.96      0.95      6554
+
+....................................................
+
+FEATURE: buildings
+
+              precision    recall  f1-score   support
+
+           0       0.96      1.00      0.98      6236
+           1       0.76      0.09      0.16       318
+
+    accuracy                           0.95      6554
+   macro avg       0.86      0.54      0.57      6554
+weighted avg       0.95      0.95      0.94      6554
+
+....................................................
+
+FEATURE: electricity
+
+              precision    recall  f1-score   support
+
+           0       0.98      1.00      0.99      6433
+           1       0.64      0.06      0.11       121
+
+    accuracy                           0.98      6554
+   macro avg       0.81      0.53      0.55      6554
+weighted avg       0.98      0.98      0.97      6554
+
+....................................................
+
+FEATURE: tools
+
+              precision    recall  f1-score   support
+
+           0       0.99      1.00      1.00      6510
+           1       0.00      0.00      0.00        44
+
+    accuracy                           0.99      6554
+   macro avg       0.50      0.50      0.50      6554
+weighted avg       0.99      0.99      0.99      6554
+
+....................................................
+
+FEATURE: hospitals
+
+              precision    recall  f1-score   support
+
+           0       0.99      1.00      0.99      6481
+           1       0.00      0.00      0.00        73
+
+    accuracy                           0.99      6554
+   macro avg       0.49      0.50      0.50      6554
+weighted avg       0.98      0.99      0.98      6554
+
+....................................................
+
+FEATURE: shops
+
+              precision    recall  f1-score   support
+
+           0       0.99      1.00      1.00      6518
+           1       0.00      0.00      0.00        36
+
+    accuracy                           0.99      6554
+   macro avg       0.50      0.50      0.50      6554
+weighted avg       0.99      0.99      0.99      6554
+
+....................................................
+
+FEATURE: aid_centers
+
+              precision    recall  f1-score   support
+
+           0       0.99      1.00      0.99      6476
+           1       0.00      0.00      0.00        78
+
+    accuracy                           0.99      6554
+   macro avg       0.49      0.50      0.50      6554
+weighted avg       0.98      0.99      0.98      6554
+
+....................................................
+
+FEATURE: other_infrastructure
+
+              precision    recall  f1-score   support
+
+           0       0.96      1.00      0.98      6267
+           1       0.00      0.00      0.00       287
+
+    accuracy                           0.96      6554
+   macro avg       0.48      0.50      0.49      6554
+weighted avg       0.91      0.96      0.93      6554
+
+....................................................
+
+FEATURE: weather_related
+
+              precision    recall  f1-score   support
+
+           0       0.84      0.96      0.90      4749
+           1       0.84      0.50      0.63      1805
+
+    accuracy                           0.84      6554
+   macro avg       0.84      0.73      0.76      6554
+weighted avg       0.84      0.84      0.82      6554
+
+....................................................
+
+FEATURE: floods
+
+              precision    recall  f1-score   support
+
+           0       0.94      1.00      0.97      6040
+           1       0.87      0.23      0.36       514
+
+    accuracy                           0.94      6554
+   macro avg       0.91      0.61      0.66      6554
+weighted avg       0.93      0.94      0.92      6554
+
+....................................................
+
+FEATURE: storm
+
+              precision    recall  f1-score   support
+
+           0       0.93      0.99      0.96      5944
+           1       0.74      0.33      0.46       610
+
+    accuracy                           0.93      6554
+   macro avg       0.84      0.66      0.71      6554
+weighted avg       0.92      0.93      0.91      6554
+
+....................................................
+
+FEATURE: fire
+
+              precision    recall  f1-score   support
+
+           0       0.99      1.00      0.99      6476
+           1       1.00      0.01      0.03        78
+
+    accuracy                           0.99      6554
+   macro avg       0.99      0.51      0.51      6554
+weighted avg       0.99      0.99      0.98      6554
+
+....................................................
+
+FEATURE: earthquake
+
+              precision    recall  f1-score   support
+
+           0       0.96      0.99      0.97      5942
+           1       0.85      0.57      0.68       612
+
+    accuracy                           0.95      6554
+   macro avg       0.91      0.78      0.83      6554
+weighted avg       0.95      0.95      0.95      6554
+
+....................................................
+
+FEATURE: cold
+
+              precision    recall  f1-score   support
+
+           0       0.98      1.00      0.99      6435
+           1       0.57      0.03      0.06       119
+
+    accuracy                           0.98      6554
+   macro avg       0.78      0.52      0.53      6554
+weighted avg       0.97      0.98      0.97      6554
+
+....................................................
+
+FEATURE: other_weather
+
+              precision    recall  f1-score   support
+
+           0       0.95      1.00      0.97      6202
+           1       0.58      0.03      0.06       352
+
+    accuracy                           0.95      6554
+   macro avg       0.76      0.51      0.52      6554
+weighted avg       0.93      0.95      0.92      6554
+
+....................................................
+
+FEATURE: direct_report
+
+              precision    recall  f1-score   support
+
+           0       0.85      0.98      0.91      5287
+           1       0.77      0.29      0.42      1267
+
+    accuracy                           0.85      6554
+   macro avg       0.81      0.63      0.67      6554
+weighted avg       0.84      0.85      0.82      6554
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[47]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">accuracy</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_predictions</span> <span class="o">==</span> <span class="n">y_test</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Overall model accuracy is:  </span><span class="si">{0:.2f}</span><span class="s1">% </span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">accuracy</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Overall model accuracy is:  94.16% 
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="6.-Improve-your-model">6. Improve your model<a class="anchor-link" href="#6.-Improve-your-model">&#182;</a></h3><p>Use grid search to find better parameters.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[35]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">model_improved</span><span class="p">():</span>
+    
+    <span class="c1"># GridSearch parameters have been added to improve model precision.</span>
+    <span class="n">pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
+        <span class="p">(</span><span class="s1">&#39;features&#39;</span><span class="p">,</span> <span class="n">FeatureUnion</span><span class="p">([</span>
+
+            <span class="p">(</span><span class="s1">&#39;text_pipeline&#39;</span><span class="p">,</span> <span class="n">Pipeline</span><span class="p">([</span>
+                <span class="p">(</span><span class="s1">&#39;vect&#39;</span><span class="p">,</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="n">tokenizer</span><span class="o">=</span><span class="n">tokenize</span><span class="p">)),</span>
+                <span class="p">(</span><span class="s1">&#39;tfidf&#39;</span><span class="p">,</span> <span class="n">TfidfTransformer</span><span class="p">())</span>
+            <span class="p">])),</span>
+
+            <span class="p">(</span><span class="s1">&#39;starting_verb&#39;</span><span class="p">,</span> <span class="n">StartingVerbExtractor</span><span class="p">())</span>
+        <span class="p">])),</span>
+
+        <span class="p">(</span><span class="s1">&#39;clf&#39;</span><span class="p">,</span> <span class="n">MultiOutputClassifier</span><span class="p">(</span><span class="n">AdaBoostClassifier</span><span class="p">()))</span>
+    <span class="p">])</span>
+
+    <span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s1">&#39;features__text_pipeline__vect__ngram_range&#39;</span><span class="p">:</span> <span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span>
+        <span class="s1">&#39;features__text_pipeline__vect__max_df&#39;</span><span class="p">:</span> <span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.75</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">),</span>
+        <span class="s1">&#39;features__text_pipeline__vect__max_features&#39;</span><span class="p">:</span> <span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="mi">5000</span><span class="p">,</span> <span class="mi">10000</span><span class="p">),</span>
+        <span class="s1">&#39;features__text_pipeline__tfidf__use_idf&#39;</span><span class="p">:</span> <span class="p">(</span><span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">),</span>
+    <span class="p">}</span>
+
+    <span class="n">pipeline</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipeline</span><span class="p">,</span> <span class="n">param_grid</span><span class="o">=</span><span class="n">parameters</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">,</span> <span class="n">verbose</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">pipeline</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[36]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model_improved</span> <span class="o">=</span> <span class="n">model_improved</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[37]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model_improved</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">x_train</span><span class="p">,</span><span class="n">y_train</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Fitting 3 folds for each of 36 candidates, totalling 108 fits
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>[Parallel(n_jobs=-1)]: Using backend LokyBackend with 4 concurrent workers.
+[Parallel(n_jobs=-1)]: Done  33 tasks      | elapsed: 48.4min
+[Parallel(n_jobs=-1)]: Done 108 out of 108 | elapsed: 279.7min finished
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[37]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>GridSearchCV(cv=&#39;warn&#39;, error_score=&#39;raise-deprecating&#39;,
+             estimator=Pipeline(memory=None,
+                                steps=[(&#39;features&#39;,
+                                        FeatureUnion(n_jobs=None,
+                                                     transformer_list=[(&#39;text_pipeline&#39;,
+                                                                        Pipeline(memory=None,
+                                                                                 steps=[(&#39;vect&#39;,
+                                                                                         CountVectorizer(analyzer=&#39;word&#39;,
+                                                                                                         binary=False,
+                                                                                                         decode_error=&#39;strict&#39;,
+                                                                                                         dtype=&lt;class &#39;numpy.int64&#39;&gt;,
+                                                                                                         encoding=&#39;utf-8&#39;,
+                                                                                                         input=&#39;content&#39;,
+                                                                                                         lowercase=True,
+                                                                                                         max_df=...
+             iid=&#39;warn&#39;, n_jobs=-1,
+             param_grid={&#39;features__text_pipeline__tfidf__use_idf&#39;: (True,
+                                                                     False),
+                         &#39;features__text_pipeline__vect__max_df&#39;: (0.5, 0.75,
+                                                                   1.0),
+                         &#39;features__text_pipeline__vect__max_features&#39;: (None,
+                                                                         5000,
+                                                                         10000),
+                         &#39;features__text_pipeline__vect__ngram_range&#39;: ((1, 1),
+                                                                        (1,
+                                                                         2))},
+             pre_dispatch=&#39;2*n_jobs&#39;, refit=True, return_train_score=False,
+             scoring=None, verbose=2)</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Message-To-Reader"><i>Message To Reader</i><a class="anchor-link" href="#Message-To-Reader">&#182;</a></h3><p>It took around <strong>5 hours</strong> to complete fit method with GridSearch - Be patient :) <br>
+I highly recommend to use your own machine instead of Udacity Portal since it can be interrupted because of the kernel shutdown. <br>
+System: Macbook Air 1.8GHz Dual Core I5 - 8GB Ram</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="7.-Test-your-model">7. Test your model<a class="anchor-link" href="#7.-Test-your-model">&#182;</a></h3><p>Show the accuracy, precision, and recall of the tuned model.</p>
+<p>Since this project focuses on code quality, process, and  pipelines, there is no minimum performance metric needed to pass. However, make sure to fine tune your models for accuracy, precision and recall to make your project stand out - especially for your portfolio!</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[40]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Get predictions </span>
+<span class="n">y_predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[41]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Sanity check for predictions</span>
+<span class="n">y_predictions</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[41]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([[1, 0, 0, ..., 0, 0, 0],
+       [1, 1, 0, ..., 0, 0, 1],
+       [1, 0, 0, ..., 0, 0, 0],
+       ...,
+       [0, 0, 0, ..., 0, 0, 0],
+       [1, 1, 0, ..., 0, 0, 0],
+       [1, 0, 0, ..., 0, 0, 0]])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[42]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Sanity check for dataframe version</span>
+<span class="n">y_predictions_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">y_predictions</span><span class="p">,</span> <span class="n">columns</span> <span class="o">=</span> <span class="n">y_test</span><span class="o">.</span><span class="n">columns</span><span class="p">)</span>
+<span class="n">y_predictions_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[42]:</div>
+
+
+
+<div class="output_html rendered_html output_subarea output_execute_result">
+<div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>related</th>
+      <th>request</th>
+      <th>offer</th>
+      <th>aid_related</th>
+      <th>medical_help</th>
+      <th>medical_products</th>
+      <th>search_and_rescue</th>
+      <th>security</th>
+      <th>military</th>
+      <th>child_alone</th>
+      <th>...</th>
+      <th>aid_centers</th>
+      <th>other_infrastructure</th>
+      <th>weather_related</th>
+      <th>floods</th>
+      <th>storm</th>
+      <th>fire</th>
+      <th>earthquake</th>
+      <th>cold</th>
+      <th>other_weather</th>
+      <th>direct_report</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>...</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 36 columns</p>
+</div>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[43]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Print classification report</span>
+<span class="k">for</span> <span class="n">column</span> <span class="ow">in</span> <span class="n">y_test</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;....................................................</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;FEATURE: </span><span class="si">{}</span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">column</span><span class="p">))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">[</span><span class="n">column</span><span class="p">],</span><span class="n">y_predictions_df</span><span class="p">[</span><span class="n">column</span><span class="p">]))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>....................................................
+
+FEATURE: related
+
+              precision    recall  f1-score   support
+
+           0       0.63      0.35      0.45      1570
+           1       0.81      0.93      0.87      4935
+           2       0.60      0.06      0.11        49
+
+    accuracy                           0.79      6554
+   macro avg       0.68      0.45      0.48      6554
+weighted avg       0.77      0.79      0.76      6554
+
+....................................................
+
+FEATURE: request
+
+              precision    recall  f1-score   support
+
+           0       0.89      0.98      0.93      5442
+           1       0.83      0.40      0.54      1112
+
+    accuracy                           0.88      6554
+   macro avg       0.86      0.69      0.74      6554
+weighted avg       0.88      0.88      0.87      6554
+
+....................................................
+
+FEATURE: offer
+
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00      6528
+           1       0.00      0.00      0.00        26
+
+    accuracy                           1.00      6554
+   macro avg       0.50      0.50      0.50      6554
+weighted avg       0.99      1.00      0.99      6554
+
+....................................................
+
+FEATURE: aid_related
+
+              precision    recall  f1-score   support
+
+           0       0.73      0.88      0.80      3896
+           1       0.74      0.52      0.61      2658
+
+    accuracy                           0.73      6554
+   macro avg       0.74      0.70      0.70      6554
+weighted avg       0.73      0.73      0.72      6554
+
+....................................................
+
+FEATURE: medical_help
+
+              precision    recall  f1-score   support
+
+           0       0.93      1.00      0.96      6066
+           1       0.62      0.06      0.11       488
+
+    accuracy                           0.93      6554
+   macro avg       0.78      0.53      0.54      6554
+weighted avg       0.91      0.93      0.90      6554
+
+....................................................
+
+FEATURE: medical_products
+
+              precision    recall  f1-score   support
+
+           0       0.96      1.00      0.98      6245
+           1       0.78      0.13      0.22       309
+
+    accuracy                           0.96      6554
+   macro avg       0.87      0.56      0.60      6554
+weighted avg       0.95      0.96      0.94      6554
+
+....................................................
+
+FEATURE: search_and_rescue
+
+              precision    recall  f1-score   support
+
+           0       0.97      1.00      0.99      6366
+           1       0.69      0.06      0.11       188
+
+    accuracy                           0.97      6554
+   macro avg       0.83      0.53      0.55      6554
+weighted avg       0.96      0.97      0.96      6554
+
+....................................................
+
+FEATURE: security
+
+              precision    recall  f1-score   support
+
+           0       0.98      1.00      0.99      6451
+           1       0.40      0.02      0.04       103
+
+    accuracy                           0.98      6554
+   macro avg       0.69      0.51      0.51      6554
+weighted avg       0.98      0.98      0.98      6554
+
+....................................................
+
+FEATURE: military
+
+              precision    recall  f1-score   support
+
+           0       0.97      1.00      0.98      6341
+           1       0.47      0.03      0.06       213
+
+    accuracy                           0.97      6554
+   macro avg       0.72      0.52      0.52      6554
+weighted avg       0.95      0.97      0.95      6554
+
+....................................................
+
+FEATURE: child_alone
+
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00      6554
+
+    accuracy                           1.00      6554
+   macro avg       1.00      1.00      1.00      6554
+weighted avg       1.00      1.00      1.00      6554
+
+....................................................
+
+FEATURE: water
+
+              precision    recall  f1-score   support
+
+           0       0.94      1.00      0.97      6129
+           1       0.82      0.16      0.26       425
+
+    accuracy                           0.94      6554
+   macro avg       0.88      0.58      0.62      6554
+weighted avg       0.94      0.94      0.92      6554
+
+....................................................
+
+FEATURE: food
+
+              precision    recall  f1-score   support
+
+           0       0.93      0.99      0.96      5819
+           1       0.84      0.37      0.52       735
+
+    accuracy                           0.92      6554
+   macro avg       0.88      0.68      0.74      6554
+weighted avg       0.92      0.92      0.91      6554
+
+....................................................
+
+FEATURE: shelter
+
+              precision    recall  f1-score   support
+
+           0       0.93      1.00      0.96      5995
+           1       0.81      0.17      0.29       559
+
+    accuracy                           0.93      6554
+   macro avg       0.87      0.58      0.62      6554
+weighted avg       0.92      0.93      0.90      6554
+
+....................................................
+
+FEATURE: clothing
+
+              precision    recall  f1-score   support
+
+           0       0.99      1.00      0.99      6459
+           1       0.71      0.11      0.18        95
+
+    accuracy                           0.99      6554
+   macro avg       0.85      0.55      0.59      6554
+weighted avg       0.98      0.99      0.98      6554
+
+....................................................
+
+FEATURE: money
+
+              precision    recall  f1-score   support
+
+           0       0.98      1.00      0.99      6407
+           1       0.78      0.05      0.09       147
+
+    accuracy                           0.98      6554
+   macro avg       0.88      0.52      0.54      6554
+weighted avg       0.97      0.98      0.97      6554
+
+....................................................
+
+FEATURE: missing_people
+
+              precision    recall  f1-score   support
+
+           0       0.99      1.00      0.99      6475
+           1       0.00      0.00      0.00        79
+
+    accuracy                           0.99      6554
+   macro avg       0.49      0.50      0.50      6554
+weighted avg       0.98      0.99      0.98      6554
+
+....................................................
+
+FEATURE: refugees
+
+              precision    recall  f1-score   support
+
+           0       0.97      1.00      0.99      6359
+           1       0.64      0.07      0.13       195
+
+    accuracy                           0.97      6554
+   macro avg       0.80      0.54      0.56      6554
+weighted avg       0.96      0.97      0.96      6554
+
+....................................................
+
+FEATURE: death
+
+              precision    recall  f1-score   support
+
+           0       0.96      1.00      0.98      6233
+           1       0.71      0.12      0.20       321
+
+    accuracy                           0.95      6554
+   macro avg       0.83      0.56      0.59      6554
+weighted avg       0.94      0.95      0.94      6554
+
+....................................................
+
+FEATURE: other_aid
+
+              precision    recall  f1-score   support
+
+           0       0.88      1.00      0.93      5747
+           1       0.56      0.02      0.05       807
+
+    accuracy                           0.88      6554
+   macro avg       0.72      0.51      0.49      6554
+weighted avg       0.84      0.88      0.83      6554
+
+....................................................
+
+FEATURE: infrastructure_related
+
+              precision    recall  f1-score   support
+
+           0       0.94      1.00      0.97      6152
+           1       0.11      0.00      0.00       402
+
+    accuracy                           0.94      6554
+   macro avg       0.52      0.50      0.49      6554
+weighted avg       0.89      0.94      0.91      6554
+
+....................................................
+
+FEATURE: transport
+
+              precision    recall  f1-score   support
+
+           0       0.96      1.00      0.98      6276
+           1       0.71      0.07      0.13       278
+
+    accuracy                           0.96      6554
+   macro avg       0.84      0.54      0.55      6554
+weighted avg       0.95      0.96      0.94      6554
+
+....................................................
+
+FEATURE: buildings
+
+              precision    recall  f1-score   support
+
+           0       0.96      1.00      0.98      6253
+           1       0.56      0.06      0.11       301
+
+    accuracy                           0.95      6554
+   macro avg       0.76      0.53      0.54      6554
+weighted avg       0.94      0.95      0.94      6554
+
+....................................................
+
+FEATURE: electricity
+
+              precision    recall  f1-score   support
+
+           0       0.98      1.00      0.99      6414
+           1       0.67      0.09      0.15       140
+
+    accuracy                           0.98      6554
+   macro avg       0.82      0.54      0.57      6554
+weighted avg       0.97      0.98      0.97      6554
+
+....................................................
+
+FEATURE: tools
+
+              precision    recall  f1-score   support
+
+           0       0.99      1.00      1.00      6517
+           1       0.00      0.00      0.00        37
+
+    accuracy                           0.99      6554
+   macro avg       0.50      0.50      0.50      6554
+weighted avg       0.99      0.99      0.99      6554
+
+....................................................
+
+FEATURE: hospitals
+
+              precision    recall  f1-score   support
+
+           0       0.99      1.00      1.00      6495
+           1       1.00      0.02      0.03        59
+
+    accuracy                           0.99      6554
+   macro avg       1.00      0.51      0.51      6554
+weighted avg       0.99      0.99      0.99      6554
+
+....................................................
+
+FEATURE: shops
+
+              precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00      6531
+           1       0.00      0.00      0.00        23
+
+    accuracy                           1.00      6554
+   macro avg       0.50      0.50      0.50      6554
+weighted avg       0.99      1.00      0.99      6554
+
+....................................................
+
+FEATURE: aid_centers
+
+              precision    recall  f1-score   support
+
+           0       0.99      1.00      0.99      6478
+           1       0.00      0.00      0.00        76
+
+    accuracy                           0.99      6554
+   macro avg       0.49      0.50      0.50      6554
+weighted avg       0.98      0.99      0.98      6554
+
+....................................................
+
+FEATURE: other_infrastructure
+
+              precision    recall  f1-score   support
+
+           0       0.96      1.00      0.98      6282
+           1       0.20      0.00      0.01       272
+
+    accuracy                           0.96      6554
+   macro avg       0.58      0.50      0.49      6554
+weighted avg       0.93      0.96      0.94      6554
+
+....................................................
+
+FEATURE: weather_related
+
+              precision    recall  f1-score   support
+
+           0       0.83      0.97      0.89      4730
+           1       0.85      0.50      0.63      1824
+
+    accuracy                           0.84      6554
+   macro avg       0.84      0.73      0.76      6554
+weighted avg       0.84      0.84      0.82      6554
+
+....................................................
+
+FEATURE: floods
+
+              precision    recall  f1-score   support
+
+           0       0.94      1.00      0.97      6022
+           1       0.91      0.31      0.46       532
+
+    accuracy                           0.94      6554
+   macro avg       0.93      0.65      0.72      6554
+weighted avg       0.94      0.94      0.93      6554
+
+....................................................
+
+FEATURE: storm
+
+              precision    recall  f1-score   support
+
+           0       0.93      0.99      0.96      5946
+           1       0.74      0.30      0.43       608
+
+    accuracy                           0.93      6554
+   macro avg       0.84      0.65      0.70      6554
+weighted avg       0.92      0.93      0.91      6554
+
+....................................................
+
+FEATURE: fire
+
+              precision    recall  f1-score   support
+
+           0       0.99      1.00      1.00      6493
+           1       0.00      0.00      0.00        61
+
+    accuracy                           0.99      6554
+   macro avg       0.50      0.50      0.50      6554
+weighted avg       0.98      0.99      0.99      6554
+
+....................................................
+
+FEATURE: earthquake
+
+              precision    recall  f1-score   support
+
+           0       0.96      0.99      0.98      5960
+           1       0.91      0.62      0.74       594
+
+    accuracy                           0.96      6554
+   macro avg       0.94      0.81      0.86      6554
+weighted avg       0.96      0.96      0.96      6554
+
+....................................................
+
+FEATURE: cold
+
+              precision    recall  f1-score   support
+
+           0       0.98      1.00      0.99      6416
+           1       0.70      0.12      0.20       138
+
+    accuracy                           0.98      6554
+   macro avg       0.84      0.56      0.59      6554
+weighted avg       0.98      0.98      0.97      6554
+
+....................................................
+
+FEATURE: other_weather
+
+              precision    recall  f1-score   support
+
+           0       0.95      1.00      0.97      6232
+           1       0.53      0.03      0.05       322
+
+    accuracy                           0.95      6554
+   macro avg       0.74      0.51      0.51      6554
+weighted avg       0.93      0.95      0.93      6554
+
+....................................................
+
+FEATURE: direct_report
+
+              precision    recall  f1-score   support
+
+           0       0.86      0.98      0.92      5289
+           1       0.81      0.31      0.45      1265
+
+    accuracy                           0.85      6554
+   macro avg       0.84      0.65      0.68      6554
+weighted avg       0.85      0.85      0.83      6554
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="8.-Try-improving-your-model-further.-Here-are-a-few-ideas:">8. Try improving your model further. Here are a few ideas:<a class="anchor-link" href="#8.-Try-improving-your-model-further.-Here-are-a-few-ideas:">&#182;</a></h3><ul>
+<li>try other machine learning algorithms</li>
+<li>add other features besides the TF-IDF</li>
+</ul>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>By using GridSearch we improved the model accuracy from 94.16% to 94.95%. <em>(see below)</em></p>
+<ul>
+<li>More appropriate classifier usage</li>
+<li>More feature availability</li>
+<li>Data size increase</li>
+</ul>
+<p>would help to increase model accuracy.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="9.-Export-your-model-as-a-pickle-file">9. Export your model as a pickle file<a class="anchor-link" href="#9.-Export-your-model-as-a-pickle-file">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[48]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># save the model to disk</span>
+<span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;model.pkl&#39;</span>
+<span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[46]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># save the model to disk</span>
+<span class="n">filename</span> <span class="o">=</span> <span class="s1">&#39;model_improved.pkl&#39;</span>
+<span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">model_improved</span><span class="p">,</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Sanity-Check"><i>Sanity Check</i><a class="anchor-link" href="#Sanity-Check">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[48]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.externals</span> <span class="k">import</span> <span class="n">joblib</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[49]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;model.pkl&quot;</span><span class="p">)</span>
+<span class="n">model_improved</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;model_improved.pkl&quot;</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[52]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">y_predictions</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
+
+<span class="n">accuracy</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_predictions</span> <span class="o">==</span> <span class="n">y_test</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Overall model accuracy for &quot;model&quot;:  </span><span class="si">{0:.2f}</span><span class="s1">% </span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">accuracy</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Overall model accuracy for &#34;model&#34;:  94.16% 
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[53]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">y_predictions</span> <span class="o">=</span> <span class="n">model_improved</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">x_test</span><span class="p">)</span>
+
+<span class="n">accuracy</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_predictions</span> <span class="o">==</span> <span class="n">y_test</span><span class="p">)</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span><span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Overall model accuracy for &quot;model_improved&quot;:  </span><span class="si">{0:.2f}</span><span class="s1">% </span><span class="se">\n</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">accuracy</span> <span class="o">*</span> <span class="mi">100</span><span class="p">))</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Overall model accuracy for &#34;model_improved&#34;:  94.95% 
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered"><div class="prompt input_prompt">
+</div><div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="10.-Use-this-notebook-to-complete-train.py">10. Use this notebook to complete <code>train.py</code><a class="anchor-link" href="#10.-Use-this-notebook-to-complete-train.py">&#182;</a></h3><p>Use the template file attached in the Resources folder to write a script that runs the steps above to create a database and export a model based on a new dataset specified by the user.</p>
 
 </div>
 </div>
