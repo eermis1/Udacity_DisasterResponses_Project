@@ -10,7 +10,7 @@ import nltk
 nltk.download(['punkt', 'wordnet', 'averaged_perceptron_tagger'])
 
 from sklearn.base import BaseEstimator, TransformerMixin
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import train_test_split, GridSearchCV
 from sklearn.multioutput import MultiOutputClassifier
 from sklearn.ensemble import RandomForestClassifier, GradientBoostingClassifier, AdaBoostClassifier
 from sklearn.feature_extraction.text import CountVectorizer, TfidfTransformer
@@ -88,6 +88,16 @@ def build_model():
 
         ('clf', MultiOutputClassifier(RandomForestClassifier()))
     ])
+
+    # number of parameter is limited with 2 because of high computation duration
+    parameters = {
+        'features__text_pipeline__vect__ngram_range': ((1, 1), (1, 2)),
+        'features__text_pipeline__vect__max_df': (0.5, 0.75, 1.0),
+        #'features__text_pipeline__vect__max_features': (None, 5000, 10000),
+        #'features__text_pipeline__tfidf__use_idf': (True, False),
+    }
+
+    pipeline = GridSearchCV(pipeline, param_grid=parameters, n_jobs=-1, verbose=2)
 
     return pipeline
 
