@@ -3,14 +3,20 @@ import numpy as np
 import pandas as pd
 from sqlalchemy import create_engine
 
-"""
-process_data.py applies the functions in the notebook step by step and
-gets the data ready for machine learning pipeline.
-Since functions have been explained in jupyter notebooks, no additional info has been added here.
-
-"""
 
 def load_data(messages_filepath, categories_filepath):
+
+    """
+    - Takes inputs as two CSV files
+    - Merges them into a single dataframe
+
+    Args:
+    messages_file_path str: Messages CSV file
+    categories_file_path str: Categories CSV file
+
+    Returns:
+    merged_df pandas_dataframe: Dataframe obtained from merging the two input data
+    """
 
     messages = pd.read_csv(messages_filepath)
     categories = pd.read_csv(categories_filepath)
@@ -21,11 +27,22 @@ def load_data(messages_filepath, categories_filepath):
 
 def clean_data(df):
 
+    """
+    - Cleans the combined dataframe to get ready for use by ML pipeline
+
+    Args:
+    df pandas_dataframe: Merged dataframe returned from load_data() function
+
+    Returns:
+    df pandas_dataframe: Cleaned data to be used by ML model
+    """
+
     categories = df.categories.str.split(pat=";", expand=True)
     row = categories.iloc[0, :]
     category_colnames = row.apply(lambda x: x[:-2])
     categories.columns = category_colnames
 
+    # binary conversion
     for column in categories:
         categories[column] = categories[column].str[-1]
         categories[column] = categories[column].astype(int)
@@ -42,6 +59,15 @@ def clean_data(df):
 
 
 def save_data(df, database_filename):
+
+    """
+    - Saves cleaned data to an SQL database
+
+    Args:
+    df pandas_dataframe: Cleaned data returned from clean_data() function
+    database_file_name str: File path of SQL Database into which the cleaned\
+    data is to be saved
+    """
 
     engine = create_engine('sqlite:///' + database_filename)
     df.to_sql('clean_dataset', engine, index=False, if_exists= 'replace')

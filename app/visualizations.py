@@ -10,6 +10,13 @@ All visualizations have been completed here.
 
 def return_graphs():
 
+    """
+    - Uses the cleaned data and creates 4 different graphs based on that.
+
+    Returns:
+    graphs - to be visualized in landing page.
+    """
+
     engine = create_engine('sqlite:///../data/CleanDataDB.db')
     df = pd.read_sql_table('clean_dataset', engine)
 

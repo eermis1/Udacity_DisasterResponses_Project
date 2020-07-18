@@ -20,15 +20,21 @@ from sklearn.pipeline import Pipeline, FeatureUnion
 from sklearn.metrics import make_scorer, accuracy_score, f1_score, fbeta_score, classification_report
 import warnings
 
-"""
-train_classifier.py applies the functions in the notebook step by step and trains the model based
-on the data from process_data.py
-Since functions have been explained in related jupyter notebooks, no additional info has been added here.
-
-"""
-
 
 def load_data(database_filepath):
+
+    """
+    - Loads data from SQL Database
+
+    Args:
+    database_filepath: SQL database file
+
+    Returns:
+    X pandas_dataframe: Features dataframe
+    Y pandas_dataframe: Target dataframe
+    category_names list: Target labels
+    """
+
     engine = create_engine('sqlite:///' + database_filepath)
     df = pd.read_sql_table('clean_dataset', engine)
     X = df["message"]
@@ -39,6 +45,17 @@ def load_data(database_filepath):
 
 
 def tokenize(text):
+
+    """
+    - Remove capitalization and special characters and lemmatize texts
+
+    Args:
+    messages as text file
+
+    Returns:
+    Processed text after normalizing, tokenizing and lemmatizing
+    """
+
     url_regex = 'http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
     detected_urls = re.findall(url_regex, text)
     for url in detected_urls:
@@ -56,6 +73,14 @@ def tokenize(text):
 
 
 class StartingVerbExtractor(BaseEstimator, TransformerMixin):
+
+    """
+    - Initialize Verb Extractor class
+
+    This class extract the starting verb of a sentence,
+    creating a new feature for the ML classifier.
+    It has been integrated from Machine Learning Pipeline - Solution: GridSearch
+    """
 
     def starting_verb(self, text):
         sentence_list = nltk.sent_tokenize(text)
@@ -75,6 +100,13 @@ class StartingVerbExtractor(BaseEstimator, TransformerMixin):
 
 
 def build_model():
+
+    """
+    - Build model with GridSearch
+
+    Returns:
+    Trained model with GridSearch
+    """
     pipeline = Pipeline([
         ('features', FeatureUnion([
 
@@ -97,12 +129,23 @@ def build_model():
         #'features__text_pipeline__tfidf__use_idf': (True, False),
     }
 
+    warnings.filterwarnings("ignore")
     pipeline = GridSearchCV(pipeline, param_grid=parameters, n_jobs=-1, verbose=2)
 
     return pipeline
 
 
 def evaluate_model(model, X_test, Y_test, category_names):
+
+    """
+    - Illustrates model performance based on test data
+
+    Args:
+    model: trained model
+    X_test: Test features
+    Y_test: Test targets
+    category_names: Target labels
+    """
 
     Y_predictions = model.predict(X_test)
 
@@ -123,6 +166,14 @@ def evaluate_model(model, X_test, Y_test, category_names):
 
 
 def save_model(model, model_filepath):
+
+    """
+    - Saves the model as Python Pickle file.
+
+    Args:
+    model: Trained model
+    model_filepath: Filepath to save the model
+    """
 
     filename = model_filepath
     pickle.dump(model, open(filename, 'wb'))
