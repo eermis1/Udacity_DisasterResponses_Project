@@ -6,6 +6,8 @@
 
 ## Description
 
+![Intro Pic](https://user-images.githubusercontent.com/36535914/87856239-7eb5b800-c926-11ea-9a28-55cf045dabb1.png)
+
 This repository has been created for Udacity Data Scientist Nanodegree Program - Data Engineering Part - Disaster Response Pipeline Project.
 The dataset has been provided by Figure Eight and it contains pre-labelled tweet and messages from real-life disaster 
 The aim of the project is to build a NLP Machine Learning Pipeline to categorize emergency messages based on the needs communicated by sender.
@@ -73,7 +75,6 @@ The project is consisted of 3 main parts.
 
 6. Go to http://0.0.0.0:3001/ <br>
 
-
 ### Author
 
 The repository has been created by ***Evren Ermiş*** <br>
@@ -81,3 +82,9 @@ The repository has been created by ***Evren Ermiş*** <br>
 - [Linkedin](www.linkedin.com/in/evrenermis92)
 - [Github](https://github.com/eermis1)
 - [Kaggle](https://www.kaggle.com/evrenermis/)
+
+
+### Screenshots
+![messagelentghperid](https://user-images.githubusercontent.com/36535914/87856285-d3f1c980-c926-11ea-9e27-c5caa19f6c0f.png)
+![Graph2](https://user-images.githubusercontent.com/36535914/87856304-f552b580-c926-11ea-9786-14e5ff3a447d.png)
+
