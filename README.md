@@ -78,6 +78,7 @@ The project is consisted of 3 main parts.
 #### Don't Forget ! <br>
 
 If you wish to run process_data.py and train_classifier.py seperately please follow below steps; <br>
+
 `python process_data.py disaster_messages.csv disaster_categories.csv DisasterResponse.db` <br>
 `python train_classifier.py ../data/DisasterResponse.db classifier.pkl` <br>
 
