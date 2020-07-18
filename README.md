@@ -27,6 +27,7 @@ The project is consisted of 3 main parts.
                         |-- go.html
                         |-- master.html
                 |-- run.py
+                |-- visualizations.py                
           |-- data
                 |-- disaster_message.csv
                 |-- disaster_categories.csv
@@ -43,37 +44,40 @@ The project is consisted of 3 main parts.
           |-- README
 ~~~~~~~
 
-### Dependencies
-* Python 3.5+ (I used Python 3.7)
-* Machine Learning Libraries: NumPy, SciPy, Pandas, Sciki-Learn
-* Natural Language Process Libraries: NLTK
-* SQLlite Database Libraqries: SQLalchemy
-* Web App and Data Visualization: Flask, Plotly
-
 ### Installation & Instructions
 
+1. Create virtual environment and activate it <br>
+   `python3 -m venv env` <br>
+   `source env/bin/activate` <br>
 
-1. Download the repository <br>
-  `git clone https://github.com/eermis1/Udacity_DisasterResponses_Project.git`
+2. Download the repository to virtual environment <br>
+   `cd env` <br>
+   `git clone https://github.com/eermis1/Udacity_DisasterResponses_Project.git` <br>
+   `cd Udacity_DisasterResponses_Project` <br>
 
-2. Run the following commands in the project's root directory to set up your database and machine learning model.
+3. Install required libraries <br>
+   `pip install numpy`<br>
+   `pip install scipy` <br>
+   `pip install pandas` <br>
+   `pip install sklearn` <br>
+   `pip install nltk` <br>
+   `pip install SQLalchemy` <br>
+   `pip install flask` <br>
+   `pip install plotly` <br>
+   
+4. Go to app directory <br>
+   `cd app`
+   
+5. Run "run.py" <br>
+   `python run.py` <br>
 
-    - To run ETL pipeline for clean and store data. <br>
-      `python data/process_data.py data/disaster_messages.csv data/disaster_categories.csv data/DisasterResponse.db`
-    - To run ML pipeline for building the model. <br>
-      `python models/train_classifier.py data/DisasterResponse.db models/classifier.pkl`
-  
-    - **Note**: Addition of filepaths is important for successful run of ETL and ML pipelines. The above instructions are just an example, they can be modified   based on   needs.
-
-3. Run the following command in the app's directory to run your web app. <br>
-     `python run.py`
-
-4. Go to http://0.0.0.0:3001/
+6. Go to http://0.0.0.0:3001/ <br>
 
 
 ### Author
 
 The repository has been created by ***Evren Ermiş*** <br>
-- [Github](https://github.com/eermis1)
+
 - [Linkedin](www.linkedin.com/in/evrenermis92)
+- [Github](https://github.com/eermis1)
 - [Kaggle](https://www.kaggle.com/evrenermis/)
