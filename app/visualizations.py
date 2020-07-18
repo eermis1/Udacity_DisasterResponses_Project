@@ -4,6 +4,9 @@ import plotly.graph_objects as go
 from plotly.graph_objs import Bar
 from sqlalchemy import create_engine
 
+"""
+All visualizations have been completed here.
+"""
 
 def return_graphs():
 

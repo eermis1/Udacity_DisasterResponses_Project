@@ -60,8 +60,8 @@ model = joblib.load("../models/model.pkl")
 def index():
 
     """
-    In order to build modular app, visualizations have been completed on visualizations.py
-    and imported here with "graphs = return_graphs()" command
+    In order to build modular app, visualizations have been completed on visualizations.py.
+    They have been imported here via "graphs = return_graphs()" function.
 
     """
 
