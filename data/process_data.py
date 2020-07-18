@@ -30,6 +30,9 @@ def clean_data(df):
         categories[column] = categories[column].str[-1]
         categories[column] = categories[column].astype(int)
 
+    # to handle "2" records in category - related
+    categories["related"].replace(to_replace=2, value=1, inplace=True)
+
     df.drop(columns="categories", inplace=True)
     df = pd.concat([df, categories], axis=1)
     print(df.head())
